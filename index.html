@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Online Bank | NetBanking</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="logo-mark" viewBox="0 0 32 32">
+    <rect width="32" height="32" rx="4" fill="currentColor"/>
+    <path d="M6 13c3-3 6-3 10 0s7 3 10 0" fill="none" style="stroke:var(--logo-wave,#fff)" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M6 20c3-3 6-3 10 0s7 3 10 0" fill="none" style="stroke:var(--logo-wave,#fff)" stroke-width="2.2" stroke-linecap="round" opacity=".6"/>
+  </symbol>
+</svg>
+
+<!-- ============ LOGIN / SIGN-UP ============ -->
+<div id="login-screen">
+  <header class="login-top">
+    <div class="brand">
+      <svg class="logo" width="30" height="30"><use href="#logo-mark"/></svg>
+      <span class="brand-name">Online Bank</span>
+    </div>
+    <nav class="login-links" aria-label="Help">
+      <a href="#" onclick="return false">Find a branch</a>
+      <a href="#" onclick="return false">Contact us</a>
+      <span class="tollfree">Toll free 1800 000 1234</span>
+    </nav>
+  </header>
+
+  <main class="login-main" id="login-main">
+    <section class="login-box">
+
+      <!-- log in -->
+      <div id="login-pane">
+        <h1>Log in to NetBanking</h1>
+        <p class="sub">Use your Customer ID or the email address you registered with.</p>
+
+        <div id="login-msg" class="alert" role="alert" hidden></div>
+
+        <form id="login-form" novalidate>
+          <div class="field">
+            <label for="cust-id">Customer ID or email</label>
+            <input id="cust-id" name="cust-id" autocomplete="username" autocapitalize="off" spellcheck="false">
+          </div>
+          <div class="field">
+            <label for="cust-pw">Password</label>
+            <div class="pw-wrap">
+              <input id="cust-pw" name="cust-pw" type="password" autocomplete="current-password">
+              <button type="button" class="link pw-toggle" id="pw-toggle">Show</button>
+            </div>
+          </div>
+          <button class="btn primary wide" type="submit" id="login-btn">Log in</button>
+          <p class="forgot"><a href="#" onclick="return false">Forgot Customer ID or password?</a></p>
+        </form>
+
+        <p class="switch">New to Online Bank? <a href="#" id="go-signup">Open an account</a></p>
+
+        <div class="demo-box">
+          <strong>Try the demo customer</strong>
+          <span>Customer ID <code>40218836</code></span>
+          <span>Password <code>Demo@123</code></span>
+          <span class="full">To test a transfer between two customers, add <code>50100234417471</code> with IFSC <code>KVRB0000012</code> as a payee from your new account.</span>
+        </div>
+      </div>
+
+      <!-- sign up -->
+      <div id="signup-pane" hidden>
+        <h1>Open a Online Bank account</h1>
+        <p class="sub">It takes about two minutes. We will give you a Customer ID and account number when you finish.</p>
+
+        <form id="signup-form" novalidate>
+          <div class="grid2">
+            <div class="field span2">
+              <label for="su-name">Full name</label>
+              <input id="su-name" maxlength="50" autocomplete="name">
+              <div class="err" id="su-name-err"></div>
+            </div>
+            <div class="field">
+              <label for="su-email">Email address</label>
+              <input id="su-email" type="email" autocomplete="email" autocapitalize="off" spellcheck="false">
+              <div class="err" id="su-email-err"></div>
+            </div>
+            <div class="field">
+              <label for="su-mobile">Mobile number</label>
+              <input id="su-mobile" inputmode="numeric" maxlength="10" autocomplete="tel-national">
+              <div class="hint">10 digits. OTPs are sent here.</div>
+              <div class="err" id="su-mobile-err"></div>
+            </div>
+            <div class="field">
+              <label for="su-dob">Date of birth</label>
+              <input id="su-dob" type="date">
+              <div class="err" id="su-dob-err"></div>
+            </div>
+            <div class="field">
+              <label for="su-type">Account type</label>
+              <select id="su-type">
+                <option value="Savings">Savings Account</option>
+                <option value="Current">Current Account</option>
+                <option value="Salary">Salary Account</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="su-branch">Home branch</label>
+              <select id="su-branch"></select>
+            </div>
+            <div class="field">
+              <label for="su-deposit">Opening deposit (₹)</label>
+              <input id="su-deposit" inputmode="decimal" autocomplete="off">
+              <div class="hint" id="su-deposit-hint"></div>
+              <div class="err" id="su-deposit-err"></div>
+            </div>
+            <div class="field">
+              <label for="su-pw">Create password</label>
+              <input id="su-pw" type="password" autocomplete="new-password">
+              <div class="hint">8+ characters with a capital letter, a number and a symbol.</div>
+              <div class="err" id="su-pw-err"></div>
+            </div>
+            <div class="field">
+              <label for="su-pw2">Confirm password</label>
+              <input id="su-pw2" type="password" autocomplete="new-password">
+              <div class="err" id="su-pw2-err"></div>
+            </div>
+            <div class="field span2">
+              <label class="check"><input type="checkbox" id="su-terms"> I confirm that these details are correct and I accept the terms and conditions of Online Bank.</label>
+              <div class="err" id="su-terms-err"></div>
+            </div>
+          </div>
+          <button class="btn primary wide" type="submit" id="su-btn">Open my account</button>
+        </form>
+
+        <p class="switch">Already a customer? <a href="#" id="go-login">Log in</a></p>
+      </div>
+
+      <!-- done -->
+      <div id="done-pane" hidden>
+        <h1>Your account is open</h1>
+        <p class="sub">Please note these details. You will need your Customer ID to log in.</p>
+        <dl class="dl flush" id="done-dl"></dl>
+        <button class="btn primary wide" type="button" id="done-login">Continue to log in</button>
+      </div>
+
+    </section>
+
+    <aside class="login-info">
+      <h2>Stay safe online</h2>
+      <p>Online Bank will never call, text or email you asking for your password, card PIN or OTP. If someone does, hang up and call us on the number above.</p>
+      <p>Before you log in, check that the address bar shows our official web address and a padlock.</p>
+      <hr>
+      <h2>Scheduled maintenance</h2>
+      <p>NetBanking will be unavailable on Sunday between 1:00 am and 3:30 am while we upgrade our systems. UPI and ATM services will continue as usual.</p>
+    </aside>
+  </main>
+
+  <footer class="login-foot">
+    <span>&copy; 2026 Online Bank Ltd. Fictional bank created for a demo project.</span>
+    <span>Privacy policy &nbsp; Terms of use &nbsp; Grievance redressal</span>
+  </footer>
+</div>
+
+<!-- ============ APP ============ -->
+<div id="app" hidden>
+  <header class="topbar">
+    <div class="brand">
+      <svg class="logo" width="28" height="28"><use href="#logo-mark"/></svg>
+      <span class="brand-name">Online Bank</span>
+    </div>
+    <div class="top-right">
+      <span class="lastlogin" id="last-login"></span>
+      <span class="who" id="who-name"></span>
+      <button class="btn small ghost" id="logout-btn">Log out</button>
+    </div>
+  </header>
+
+  <div class="shell">
+    <nav class="side" aria-label="Main">
+      <a href="#overview" data-route="overview">Account overview</a>
+      <a href="#statements" data-route="statements">Statements</a>
+      <a href="#transfer" data-route="transfer">Transfer funds</a>
+      <a href="#payees" data-route="payees">Payees</a>
+      <a href="#profile" data-route="profile">My profile</a>
+    </nav>
+
+    <main class="content" id="content">
+
+      <!-- Overview -->
+      <section class="view" id="view-overview">
+        <div class="page-head">
+          <h1 tabindex="-1" id="greeting"></h1>
+          <p class="sub" id="ov-sub"></p>
+        </div>
+
+        <div class="notice welcome" id="welcome-note" hidden>
+          <strong>Your account is ready.</strong>
+          There is no activity yet apart from your opening deposit. Use <a href="#transfer">Transfer funds</a> to add money or send it to someone, and every transaction will appear here.
+        </div>
+
+        <div class="two-col">
+          <div>
+            <div class="panel">
+              <div class="panel-head">
+                <h2>Your accounts</h2>
+                <button class="link" id="toggle-bal">Hide balances</button>
+              </div>
+              <div class="table-wrap">
+                <table class="tbl">
+                  <thead><tr><th>Account</th><th>Type</th><th class="num">Available balance</th><th><span class="sr">Actions</span></th></tr></thead>
+                  <tbody id="acct-rows"></tbody>
+                </table>
+              </div>
+              <div class="panel-foot">
+                <span>Total across accounts</span>
+                <strong id="total-bal"></strong>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-head">
+                <h2>Recent transactions</h2>
+                <a href="#statements">View full statement</a>
+              </div>
+              <div class="table-wrap">
+                <table class="tbl">
+                  <thead><tr><th>Date</th><th>Details</th><th class="num">Amount</th></tr></thead>
+                  <tbody id="recent-rows"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="panel">
+              <div class="panel-head"><h2>Spending in the last 30 days</h2></div>
+              <div class="panel-body" id="spend"></div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-head"><h2>Quick links</h2></div>
+              <ul class="linklist">
+                <li><a href="#transfer">Send money</a></li>
+                <li><a href="#payees">Add a payee</a></li>
+                <li><a href="#statements" id="dl-link">Download a statement</a></li>
+                <li><a href="#profile">Change password</a></li>
+              </ul>
+            </div>
+
+            <div class="notice">
+              <strong>Keep your OTP to yourself.</strong>
+              Bank staff will never ask for it, even if they say your account is at risk.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Statements -->
+      <section class="view" id="view-statements" hidden>
+        <div class="page-head">
+          <h1 tabindex="-1">Statements</h1>
+          <p class="sub">Search your transactions or download them as a CSV file.</p>
+        </div>
+
+        <div class="panel">
+          <form class="filters" id="stmt-filters" onsubmit="return false">
+            <div class="field">
+              <label for="f-acc">Account</label>
+              <select id="f-acc"></select>
+            </div>
+            <div class="field">
+              <label for="f-type">Show</label>
+              <select id="f-type">
+                <option value="all">All transactions</option>
+                <option value="cr">Money in</option>
+                <option value="dr">Money out</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="f-from">From</label>
+              <input type="date" id="f-from">
+            </div>
+            <div class="field">
+              <label for="f-to">To</label>
+              <input type="date" id="f-to">
+            </div>
+            <div class="field grow">
+              <label for="f-q">Search details</label>
+              <input type="search" id="f-q" placeholder="e.g. Swiggy, rent, salary">
+            </div>
+          </form>
+
+          <div class="stmt-bar">
+            <span id="stmt-count"></span>
+            <span>
+              <button class="link" id="f-reset">Clear filters</button>
+              <button class="btn small" id="csv-btn">Download CSV</button>
+            </span>
+          </div>
+
+          <div class="table-wrap">
+            <table class="tbl" id="stmt-table">
+              <thead>
+                <tr>
+                  <th>Date</th><th>Details</th><th class="col-acc">Account</th>
+                  <th class="num">Money out</th><th class="num">Money in</th><th class="num col-bal">Balance</th>
+                </tr>
+              </thead>
+              <tbody id="stmt-rows"></tbody>
+            </table>
+          </div>
+          <div class="panel-foot center" id="more-wrap" hidden>
+            <button class="btn small" id="more-btn">Show more</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Transfer -->
+      <section class="view" id="view-transfer" hidden>
+        <div class="page-head">
+          <h1 tabindex="-1">Transfer funds</h1>
+          <p class="sub">Move money between your own accounts or send it to a saved payee.</p>
+        </div>
+
+        <div class="panel narrow" id="transfer-panel">
+          <form id="transfer-form" novalidate>
+            <div class="field">
+              <label for="t-from">From account</label>
+              <select id="t-from"></select>
+              <div class="hint" id="t-from-bal"></div>
+            </div>
+
+            <div class="field">
+              <label for="t-to">To</label>
+              <select id="t-to"></select>
+              <div class="err" id="t-to-err"></div>
+            </div>
+
+            <fieldset class="field" id="t-mode-wrap" hidden>
+              <legend>Transfer mode</legend>
+              <label class="radio"><input type="radio" name="t-mode" value="IMPS" checked> IMPS <span class="hint-inline">Instant, up to ₹2,00,000</span></label>
+              <label class="radio"><input type="radio" name="t-mode" value="NEFT"> NEFT <span class="hint-inline">Settled in half-hourly batches</span></label>
+            </fieldset>
+
+            <div class="field">
+              <label for="t-amt">Amount (₹)</label>
+              <input id="t-amt" inputmode="decimal" autocomplete="off" placeholder="0.00">
+              <div class="err" id="t-amt-err"></div>
+            </div>
+
+            <div class="field">
+              <label for="t-rem">Remarks <span class="opt">(optional)</span></label>
+              <input id="t-rem" maxlength="30" autocomplete="off">
+            </div>
+
+            <div class="actions">
+              <button class="btn primary" type="submit">Continue</button>
+              <button class="btn" type="reset" id="t-reset">Clear</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="panel narrow" id="receipt" hidden></div>
+
+        <div class="panel narrow">
+          <div class="panel-head"><h2>Add money (demo)</h2></div>
+          <form class="panel-body" id="addmoney-form" novalidate>
+            <p class="hint" style="margin-top:0">Simulates a cash deposit at a branch, so you have some activity to look at.</p>
+            <div class="field">
+              <label for="am-acc">Deposit into</label>
+              <select id="am-acc"></select>
+            </div>
+            <div class="field">
+              <label for="am-amt">Amount (₹)</label>
+              <input id="am-amt" inputmode="decimal" autocomplete="off">
+              <div class="err" id="am-err"></div>
+            </div>
+            <div class="alert ok" id="am-ok" hidden></div>
+            <div class="actions"><button class="btn primary" type="submit">Add money</button></div>
+          </form>
+        </div>
+      </section>
+
+      <!-- Payees -->
+      <section class="view" id="view-payees" hidden>
+        <div class="page-head">
+          <h1 tabindex="-1">Payees</h1>
+          <p class="sub">People and businesses you send money to.</p>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h2>Saved payees</h2></div>
+          <div class="table-wrap">
+            <table class="tbl">
+              <thead><tr><th>Name</th><th>Account number</th><th>IFSC</th><th><span class="sr">Actions</span></th></tr></thead>
+              <tbody id="payee-rows"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="panel narrow">
+          <div class="panel-head"><h2>Add a payee</h2></div>
+          <form class="panel-body" id="payee-form" novalidate>
+            <div class="field">
+              <label for="p-name">Name as per bank records</label>
+              <input id="p-name" maxlength="40" autocomplete="off">
+              <div class="err" id="p-name-err"></div>
+            </div>
+            <div class="field">
+              <label for="p-acc">Account number</label>
+              <input id="p-acc" inputmode="numeric" maxlength="18" autocomplete="off">
+              <div class="err" id="p-acc-err"></div>
+            </div>
+            <div class="field">
+              <label for="p-ifsc">IFSC code</label>
+              <input id="p-ifsc" maxlength="11" autocomplete="off" style="text-transform:uppercase">
+              <div class="hint">11 characters, for example KVRB0000123</div>
+              <div class="err" id="p-ifsc-err"></div>
+            </div>
+            <div class="actions">
+              <button class="btn primary" type="submit">Save payee</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- Profile -->
+      <section class="view" id="view-profile" hidden>
+        <div class="page-head">
+          <h1 tabindex="-1">My profile</h1>
+          <p class="sub">To change your address or mobile number, please visit your home branch.</p>
+        </div>
+
+        <div class="two-col even">
+          <div class="panel">
+            <div class="panel-head"><h2>Personal details</h2></div>
+            <dl class="dl" id="profile-dl"></dl>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head"><h2>Change password</h2></div>
+            <form class="panel-body" id="pw-form" novalidate>
+              <div class="field">
+                <label for="pw-old">Current password</label>
+                <input id="pw-old" type="password" autocomplete="current-password">
+                <div class="err" id="pw-old-err"></div>
+              </div>
+              <div class="field">
+                <label for="pw-new">New password</label>
+                <input id="pw-new" type="password" autocomplete="new-password">
+                <div class="hint">At least 8 characters with one capital letter, one number and one symbol.</div>
+                <div class="err" id="pw-new-err"></div>
+              </div>
+              <div class="field">
+                <label for="pw-new2">Confirm new password</label>
+                <input id="pw-new2" type="password" autocomplete="new-password">
+                <div class="err" id="pw-new2-err"></div>
+              </div>
+              <div class="alert ok" id="pw-ok" hidden>Your password has been changed.</div>
+              <div class="actions">
+                <button class="btn primary" type="submit">Update password</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h2>Account details</h2></div>
+          <div class="table-wrap">
+            <table class="tbl">
+              <thead><tr><th>Account</th><th>Account number</th><th>IFSC</th><th>Branch</th><th>Opened on</th></tr></thead>
+              <tbody id="profile-accts"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="app-foot">
+    <span>&copy; 2026 Online Bank Ltd. Demo project, no real money involved.</span>
+  </footer>
+</div>
+
+<!-- OTP dialog -->
+<dialog id="confirm-dlg" aria-labelledby="dlg-h">
+  <form id="confirm-form" novalidate>
+    <h2 id="dlg-h">Confirm transfer</h2>
+    <dl class="dl tight" id="confirm-details"></dl>
+    <div class="field">
+      <label for="otp">One-time password</label>
+      <input id="otp" inputmode="numeric" maxlength="6" autocomplete="one-time-code">
+      <div class="hint" id="otp-hint"></div>
+      <div class="err" id="otp-err"></div>
+    </div>
+    <div class="actions">
+      <button type="button" class="btn" id="otp-cancel">Cancel</button>
+      <button type="submit" class="btn primary">Confirm transfer</button>
+    </div>
+  </form>
+</dialog>
+
+<script src="app.js"></script>
+</body>
+</html>
